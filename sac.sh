@@ -293,7 +293,7 @@ do
         5)
             # 更新脚本
             rm -rf sac.sh
-            curl -O https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/sac.sh
+            curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
             ;;
         *) 
             echo -e "m9( ｀д´ )!!!! \n\033[0;36m坏猫猫居然不听话，存心和我hoping喵~过不去是吧？\033[0m\n"
