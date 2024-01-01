@@ -1,7 +1,7 @@
 #!/bin/bash
 
 version="Ver2.5"
-hopingmiao=hotmiao
+# hopingmiao=hotmiao
 
 function clewdSettings { 
     clewd_dir=clewd
@@ -90,10 +90,10 @@ function clewdSettings {
             read -p "输入选择喵：" choice
             case $choice in 
                 1)  
-                    sed -i 's/"rProxy": ".*",/"rProxy": "''",/g' $clewd_dir/config.js
+                    sed -i 's/"rProxy": ".*",/"rProxy": "",/g' $clewd_dir/config.js
                     ;; 
                 2) 
-                    sed -i 's/"rProxy": ".*",/"rProxy": "'https://chat.finechat.ai'",/g' $clewd_dir/config.js
+                    sed -i 's/"rProxy": ".*",/"rProxy": "'https:\/\/chat.finechat.ai'",/g' $clewd_dir/config.js
                     ;; 
                 3)
                     # 读取用户输入rProxy
