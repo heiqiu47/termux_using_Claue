@@ -6,13 +6,7 @@ hopingmiao=hotmiao
 function clewdSettings { 
     clewd_dir=clewd
     # 3. Clewd设置
-    echo -e "\033[0;36mhoping：选一个执行喵~\n\033[0m\033[0;33m--------------------------------------\n\033[0m
-    \033[0;33m选项1 为Clewd添加Cookies\n\033[0m
-    \033[0;37m选项2 修改Clewd密码\n\033[0m
-    \033[0;33m选项3 修改Clewd端口\n\033[0m
-    \033[0;37m选项4 修改 Cookiecounter(Cookie切换频率)\n\033[0m
-    \033[0;33m选项0 删除现有clewd，下载最新测试修改版clewd\n\033[0m
-    \033[0;33m--------------------------------------\n\033[0m"
+    echo -e "\033[0;36mhoping：选一个执行喵~\n\033[0m\033[0;33m--------------------------------------\n\033[0m\033[0;33m选项1 为Clewd添加Cookies\n\033[0m\033[0;37m选项2 修改Clewd密码\n\033[0m\033[0;33m选项3 修改Clewd端口\n\033[0m\033[0;37m选项4 修改 Cookiecounter(Cookie切换频率)\n\033[0m\033[0;33m选项0 删除现有clewd，下载最新测试修改版clewd\n\033[0m\033[0;33m--------------------------------------\n\033[0m"
     read -n 1 option
     echo
     case $option in 
