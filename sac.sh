@@ -86,20 +86,20 @@ function clewdSettings {
             ;;
         7)  
             # 修改 rProxy
-            echo -p "1. 官网地址claude.ai\n2. 国内镜像地址finechat.ai3.自定义地址\n0.不修改\n"
+            echo -e "1. 官网地址claude.ai\n2. 国内镜像地址finechat.ai3. 自定义地址\n0. 不修改\n"
             read -p "输入选择喵：" choice
             case $choice in 
-                1) 
-                    sed -i 's/"rProxy"*./"rProxy": ''/g' $clewd_dir/config.js
+                1)  
+                    sed -i 's/"rProxy": ".*",/"rProxy": "",/g' $clewd_dir/config.js
                     ;; 
                 2) 
-                    sed -i 's/"rProxy"*./"rProxy": 'https://chat.finechat.ai'/g' $clewd_dir/config.js
+                    sed -i 's/"rProxy": ".*",/"rProxy": "https://chat.finechat.ai",/g' $clewd_dir/config.js
                     ;; 
                 3)
                     # 读取用户输入rProxy
                     read -p "请输入需要设置的数值:" rProxy
                     # 更新配置文件的rProxy
-                    sed -i 's/"rProxy":.*/"rProxy": '$rProxy'/g' $clewd_dir/config.js
+                    sed -i 's/"rProxy": ".*",/"rProxy": "'$rProxy'",/g' $clewd_dir/config.js
                     echo "rProxy已修改为$rProxy"
                     ;; 
                 0) 
@@ -269,7 +269,7 @@ do
         1) 
             #启动Clewd
             port=$(grep -oP '"Port":\s*\K\d+' clewd/config.js)
-            echo "端口为$port, 出现 (x)Login in {邮箱} 代表启动成功喵, 后续出现AI无法应答等报错请参考本窗口。"
+            echo "端口为$port, 出现 (x)Login in {邮箱} 代表启动成功, 后续出现AI无法应答等报错请检查本窗口喵。"
             cd clewd
             bash start.sh
             echo "Clewd已关闭, 即将返回主菜单"
