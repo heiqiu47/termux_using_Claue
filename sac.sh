@@ -93,13 +93,13 @@ function clewdSettings {
                     sed -i 's/"rProxy": ".*",/"rProxy": "",/g' $clewd_dir/config.js
                     ;; 
                 2) 
-                    sed -i 's/"rProxy": ".*",/"rProxy": "'https:\/\/chat.finechat.ai'",/g' $clewd_dir/config.js
+                    sed -i 's#"rProxy": ".*",#"rProxy": "https://chat.finechat.ai",#g' $clewd_dir/config.js
                     ;; 
                 3)
                     # 读取用户输入rProxy
                     read -p "请输入需要设置的数值:" rProxy
                     # 更新配置文件的rProxy
-                    sed -i 's/"rProxy": ".*",/"rProxy": "'$rProxy'",/g' $clewd_dir/config.js
+                    sed -i 's#"rProxy": ".*",#"rProxy": "'$rProxy'",#g' $clewd_dir/config.js
                     echo "rProxy已修改为$rProxy"
                     ;; 
                 0) 
