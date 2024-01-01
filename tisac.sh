@@ -51,7 +51,7 @@ git clone https://github.com/SillyTavern/SillyTavern
 
 git clone https://github.com/teralomaniac/clewd
 
-curl -O https://raw.githubusercontent.com/heiqiu/termux_using_Claue/main/sac.sh
+curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
 
 if [ ! -f "$current/root/sac.sh" ]; then
    echo "启动文件下载失败了，换个魔法或者手动下载试试吧"
