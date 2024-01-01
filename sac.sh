@@ -86,20 +86,20 @@ function clewdSettings {
             ;;
         7)  
             # 修改 rProxy
-            echo -p "1. 官网地址claude.ai\n2. 国内镜像地址finechat.ai\n0.不修改\n"
+            echo -p "1. 官网地址claude.ai\n2. 国内镜像地址finechat.ai3.自定义地址\n0.不修改\n"
             read -p "输入选择喵：" choice
             case $choice in 
                 1) 
-                    sed -i 's/"rProxy": */"rProxy": ''/g' $clewd_dir/config.js
+                    sed -i 's/"rProxy"*./"rProxy": ''/g' $clewd_dir/config.js
                     ;; 
                 2) 
-                    sed -i 's/"rProxy": */"rProxy": 'https://chat.finechat.ai'/g' $clewd_dir/config.js
+                    sed -i 's/"rProxy"*./"rProxy": 'https://chat.finechat.ai'/g' $clewd_dir/config.js
                     ;; 
                 3)
                     # 读取用户输入rProxy
                     read -p "请输入需要设置的数值:" rProxy
                     # 更新配置文件的rProxy
-                    sed -i 's/"rProxy": [0-9]*/"rProxy": '$rProxy'/g' $clewd_dir/config.js
+                    sed -i 's/"rProxy":.*/"rProxy": '$rProxy'/g' $clewd_dir/config.js
                     echo "rProxy已修改为$rProxy"
                     ;; 
                 0) 
@@ -252,7 +252,7 @@ fi
 # 主菜单
 echo "                                              
 烧猫一键脚本
-作者：hoping喵，水秋喵
+作者：hoping喵(烧猫)，水秋喵(苦等hoping喵起床)
 版本：$version
 来自：Claude2.1先行破限组
 群号：704819371，910524479，304690608
