@@ -86,14 +86,14 @@ function clewdSettings {
             ;;
         7)  
             # 修改 rProxy
-            echo -e "1. 官网地址claude.ai\n2. 国内镜像地址finechat.ai3. 自定义地址\n0. 不修改\n"
+            echo -e "\n1. 官网地址claude.ai\n2. 国内镜像地址finechat.ai\n3. 自定义地址\n0. 不修改"
             read -p "输入选择喵：" choice
             case $choice in 
                 1)  
-                    sed -i 's/"rProxy": ".*",/"rProxy": "",/g' $clewd_dir/config.js
+                    sed -i 's/"rProxy": ".*",/"rProxy": "''",/g' $clewd_dir/config.js
                     ;; 
                 2) 
-                    sed -i 's/"rProxy": ".*",/"rProxy": "https://chat.finechat.ai",/g' $clewd_dir/config.js
+                    sed -i 's/"rProxy": ".*",/"rProxy": "'https://chat.finechat.ai'",/g' $clewd_dir/config.js
                     ;; 
                 3)
                     # 读取用户输入rProxy
@@ -294,6 +294,7 @@ do
             # 更新脚本
             rm -rf sac.sh
             curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
+            break
             ;;
         *) 
             echo -e "m9( ｀д´ )!!!! \n\033[0;36m坏猫猫居然不听话，存心和我hoping喵~过不去是吧？\033[0m\n"
