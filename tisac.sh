@@ -2,10 +2,11 @@
 
 echo "                                              
 喵喵一键安卓脚本
-作者: hoping喵，坏水秋
-来自: Claude2.1先行破限组
+作者: hoping喵，水秋喵
+来自: Claude先行破限组
 群号: 704819371 / 910524479 / 304690608
 类脑Discord: https://discord.gg/HWNkueX34q
+教程：https://sqivg8d05rm.feishu.cn/wiki/EY5TwjuwliCwZpk7Gy7cPGH1nvb
 "
 
 echo -e "\033[0;31m开魔法！开魔法！开魔法！\033[0m\n"
@@ -14,9 +15,10 @@ read -p "确保开了魔法后按回车继续"
 
 current=/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu
 
-yes | apt update
-
-yes | apt upgrade
+yes | pkg update
+yes | pkg upgrade
+yes | pkg install git
+yes | pkg install nodejs
 
 # 安装proot-distro
 DEBIAN_FRONTEND=noninteractive pkg install proot-distro -y
@@ -34,7 +36,7 @@ DEBIAN_FRONTEND=noninteractive proot-distro install ubuntu
 
 echo "正在安装相应软件喵~"
 
-DEBIAN_FRONTEND=noninteractive pkg install git vim curl tar xz-utils python3 zip -y
+DEBIAN_FRONTEND=noninteractive pkg install git vim curl xz-utils -y
 
 if [ -d "SillyTavern" ]; then
   cp -r SillyTavern $current/root/
@@ -43,12 +45,12 @@ fi
 cd $current/root
 
 echo "正在为Ubuntu安装node喵~"
-if [ ! -d node-v20.10.0-linux-arm64.tar.xz ]; then
-    curl -O https://nodejs.org/dist/v20.10.0/node-v20.10.0-linux-arm64.tar.xz
+if [ ! -d node-v22.16.0-linux-arm64.tar.xz ]; then
+    curl -O https://nodejs.org/dist/v22.16.0/node-v22.16.0-linux-arm64.tar.xz
 
-tar xf node-v20.10.0-linux-arm64.tar.xz
+tar xf node-v22.16.0-linux-arm64.tar.xz
 
-echo "export PATH=\$PATH:/root/node-v20.10.0-linux-arm64/bin" >>$current/etc/profile
+echo "export PATH=\$PATH:/root/node-v22.16.0-linux-arm64/bin" >>$current/etc/profile
 fi
 
 if [ ! -d "SillyTavern" ]; then
@@ -73,6 +75,8 @@ if [ ! -f "$current/root/sac.sh" ]; then
    echo "启动文件下载失败了，换个魔法或者手动下载试试吧"
    exit
 fi
+
+ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root
 
 echo "bash /root/sac.sh" >>$current/root/.bashrc
 
