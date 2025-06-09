@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version="Ver2.9.6"
+version="Ver2.9.7"
 clewd_version="$(grep '"version"' "clewd/package.json" | awk -F '"' '{print $4}')($(grep "Main = 'clewd修改版 v'" "clewd/lib/clewd-utils.js" | awk -F'[()]' '{print $3}'))"
 st_version=$(grep '"version"' "SillyTavern/package.json" | awk -F '"' '{print $4}')
 echo "hoping：卡在这里了？...说明有小猫没开魔法喵~"
@@ -10,8 +10,7 @@ clewd_subversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/
 clewd_latest="$clewd_latestversion($clewd_subversion)"
 st_latest=$(curl -s https://raw.githubusercontent.com/SillyTavern/SillyTavern/release/package.json | grep '"version"' | awk -F '"' '{print $4}')
  saclinkemoji=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $3 }')
-# hopingmiao=hotmiao
-#
+# hopingmiao==hotmiao 
 
 # ANSI Colors
 RED='\033[0;31m'
@@ -32,9 +31,9 @@ if command -v node &> /dev/null; then
     node --version
 else
     echo "node指令不存在，正在尝试重新下载喵~"
-    curl -O https://nodejs.org/dist/v20.10.0/node-v20.10.0-linux-arm64.tar.xz
-    tar xf node-v20.10.0-linux-arm64.tar.xz
-    echo "export PATH=\$PATH:/root/node-v20.10.0-linux-arm64/bin" >>/etc/profile
+    curl -O https://nodejs.org/dist/v22.16.0/node-v22.16.0-linux-arm64.tar.xz
+    tar xf node-v22.16.0-linux-arm64.tar.xz
+    echo "export PATH=\$PATH:/root/node-v22.16.0-linux-arm64/bin" >>/etc/profile
     source /etc/profile
     if command -v node &> /dev/null; then
         echo "node成功下载"
@@ -145,12 +144,12 @@ function clewdSettings {
                     cookie_array=$(echo "$cookies" | tr '\n' ',' | sed 's/,$//')
                     # Update config.js
                     sed -i "/\"CookieArray\"/s/\[/\[$cookie_array\,/" ./$clewd_dir/config.js
-                    echo "Cookies成功被添加到config.js文件了喵~"
+                    echo "Cookies已经成功被添加到config.js文件了喵~"
                 else
-                    echo "没有找到cookie喵~o(╥﹏╥)o，要不检查一下cookie是不是输错了吧？(如果要退出输入请按Ctrl+D)"
+                    echo "你输入了什么，没有找到cookie喵~o(╥﹏╥)o，要不检查一下cookie是不是输错了吧？(如果已经添加成功，要退出输入请按Ctrl+D)"
                 fi
             done
-            echo "cookies成功输入了(*^▽^*)"
+            echo "cookies输入结束喵(*^▽^*)"
             ;;
         4) 
             # 修改 Clewd 密码
@@ -481,6 +480,7 @@ function sillyTavernSettings {
 \033[0;33m选项7 删除 旧版本酒馆(不包括上一版本)\033[0m
 \033[0;37m选项8 回退 上一版本酒馆\033[0m
 \033[0;33m选项9 导出 当前版本酒馆\033[0m
+\033[0;37m选项a 重新安装依赖\033[0m
 \033[0;33m--------------------------------------\033[0m
 \033[0;31m选项0 更新酒馆\033[0m
 \033[0;33m--------------------------------------\033[0m
@@ -655,6 +655,13 @@ hoping：选择更新正式版或者测试版喵？
             rm -rf SillyTavern.zip
             pkill -f 'python -m http.server'
             ;;
+        a)
+            echo -e "重新下载依赖中，请确保网络环境正常，如失败请更换节点"
+            cd SillyTavern/
+            rm -rf node_modules
+            npm install
+            cd ~/
+            ;;
         *)
             echo "什么都没有执行喵~"
             ;;
@@ -825,7 +832,8 @@ echo -e "
 最新：\033[5;36m酒馆:$st_latest\033[0m \033[5;32mclewd:$clewd_latest\033[0m \033[0;33m脚本:$latest_version\033[0m
 来自：Claude先行破限组
 群号：704819371，910524479，304690608
-类脑Discord(角色卡发布等): https://discord.gg/HWNkueX34q
+类脑Discord: https://discord.gg/HWNkueX34q
+相关教程：https://sqivg8d05rm.feishu.cn/wiki/EY5TwjuwliCwZpk7Gy7cPGH1nvb
 此程序完全免费，不允许对脚本/教程进行盗用/商用。运行时需要稳定的魔法网络环境。"
 while :
 do 
@@ -850,7 +858,7 @@ do
         1) 
             #启动Clewd
             port=$(grep -oP '"Port":\s*\K\d+' clewd/config.js)
-            echo "端口为$port, 出现 (x)Login in {邮箱} 代表启动成功, 后续出现AI无法应答等报错请检查本窗口喵。"
+            echo "端口为$port, 出现 (x)Login in {邮箱} 代表启动成功, 后续出现AI无法应答等报错请检查本窗口喵，可使用Ctrl+C退出Clewd。"
 			ps -ef | grep clewd.js | awk '{print$2}' | xargs kill -9
             cd clewd
             bash start.sh
@@ -859,9 +867,10 @@ do
             ;; 
         2) 
             #启动SillyTavern
+            echo "酒馆启动中，可使用Ctrl+C退出酒馆。"
 			ps -ef | grep server.js | awk '{print$2}' | xargs kill -9
             cd SillyTavern
-	        bash start.sh
+	        bash start.sh 
             echo "酒馆已关闭, 即将返回主菜单"
             cd ../
             ;; 
@@ -882,8 +891,9 @@ do
 			;;
         6)
             # 更新脚本
+            echo -e "该选项仅用于更新脚本，如需更新Clewd或酒馆，请在对应设置里选择喵~"
             curl -O https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/sac.sh
-	    echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
+	        echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
             break ;;
         *) 
             echo -e "m9( ｀д´ )!!!! \n\033[0;36m坏猫猫居然不听话，存心和我hoping喵~过不去是吧？\033[0m\n"
