@@ -97,6 +97,29 @@ if  [ ! -d "clewd" ] || [ ! -f "clewd/config.js" ]; then
 	exit 3
 fi
 
+function clewdRSettings {
+    # ClewdR设置
+    echo -e "\033[0;36mhoping：选一个执行，输入其他键可退出喵~\033
+[0;33m--------------------------------------\033[0m
+\033[0;33m选项1 查看配置文件\033[0m
+\033[0;37m选项2 使用 Vim 编辑配置文件\033[0m"
+    read -n 1 option
+    echo
+    case $option in 
+        1) 
+            # 查看 config.js
+            cat clewdr.toml
+            ;;
+        2)
+            # 使用 Vim 编辑 config.js
+            vim clewdr.toml
+            ;;
+        *)
+            echo "什么都没有执行喵~"
+        ;;
+    esac
+}
+
 function clewdSettings { 
     # 3. Clewd设置
     if grep -q '"sactag"' "clewd/config.js"; then
@@ -105,7 +128,7 @@ function clewdSettings {
         sactag_value="默认"
     fi
     clewd_dir=clewd
-    echo -e "\033[0;36mhoping：选一个执行喵~\033[0m
+    echo -e "\033[0;36mhoping：选一个执行，输入其他键可退出喵~\033[0m
 \033[0;33m当前:\033[0m$clewd_version \033[0;33m最新:\033[0m\033[5;36m$clewd_latest\033[0m \033[0;33mconfig.js:\033[5;37m$sactag_value
 \033[0;33m--------------------------------------\033[0m
 \033[0;33m选项1 查看 config.js 配置文件\033[0m
@@ -475,7 +498,7 @@ function clewdSettings {
 
 function sillyTavernSettings {
     # 4. SillyTavern设置
-	echo -e "\033[0;36mhoping：选一个执行喵~\033[0m
+	echo -e "\033[0;36mhoping：选一个执行，输入其他键可退出喵~\033[0m
 \033[0;33m当前版本:\033[0m$st_version \033[0;33m最新版本:\033[0m\033[5;36m$st_latest\033[0m
 \033[0;33m--------------------------------------\033[0m
 \033[0;33m选项1 安装 TavernAI-extras（酒馆拓展）\033[0m
@@ -850,11 +873,12 @@ do
 \033[0;37m选项1 启动Clewd\033[0m
 \033[0;33m选项2 启动酒馆\033[0m
 \033[0;37m选项3 Clewd设置\033[0m
-\033[0;33m选项5 酒馆设置\033[0m
-\033[0;37m选项5 神秘小链接$saclinkemoji\033[0m
+\033[0;33m选项4 酒馆设置\033[0m
+\033[0;37m选项5 ClewdR设置\033[0m
+\033[0;33m选项6 神秘小链接$saclinkemoji\033[0m
 \033[0;33m--------------------------------------\033[0m
-\033[0;37m选项6 更新脚本\033[0m
-\033[0;31m选项7 退出脚本\033[0m
+\033[0;37m选项7 更新脚本\033[0m
+\033[0;31m选项8 退出脚本\033[0m
 \033[0;33m--------------------------------------\033[0m
 \033[0;35m不准选其他选项，听到了吗？
 \033[0m\n(⇀‸↼‶)"
@@ -900,20 +924,24 @@ do
             #SillyTavern设置
             sillyTavernSettings
             ;; 
-		5)
+		5) 
+            #ClewdR设置
+            clewdRSettings
+            ;;
+		6)
 			saclinkname=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $1 }')
 			echo -e "神秘小链接会不定期悄悄更新，这次的神秘小链接是..."
 			sleep 2
 			echo $saclinkname
 			termux-open-url $(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $2 }')
 			;;
-        6)
+        7)
             # 更新脚本
             echo -e "该选项仅用于更新脚本，如需更新Clewd或酒馆，请在对应设置里选择喵~"
             curl -O https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/sac.sh
 	        echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
             break ;;
-        7) 
+        8) 
             echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
             break ;;
         *) 
