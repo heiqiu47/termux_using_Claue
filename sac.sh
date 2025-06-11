@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version="Ver2.9.7"
+version="Ver2.9.8"
 clewd_version="$(grep '"version"' "clewd/package.json" | awk -F '"' '{print $4}')($(grep "Main = 'clewd修改版 v'" "clewd/lib/clewd-utils.js" | awk -F'[()]' '{print $3}'))"
 st_version=$(grep '"version"' "SillyTavern/package.json" | awk -F '"' '{print $4}')
 echo "hoping：卡在这里了？...说明有小猫没开魔法喵~"
@@ -77,6 +77,13 @@ elif [ ! -f "clewd/config.js" ]; then
     cd clewd
     bash start.sh
     cd /root
+fi
+
+if [ ! "clewdR" ]; then
+	echo "clewdR不存在，正在下载喵...项目地址：https://github.com/Xerxes-2/clewdr"
+	curl -fL "https://github.com/Xerxes-2/clewdr/releases/latest/download/clewdr-android-aarch64.zip" -O
+	unzip clewdr-android-aarch64 -d .
+	chmod +x clewdr
 fi
 
 if [ ! -d "SillyTavern" ]; then
@@ -839,14 +846,15 @@ while :
 do 
     echo -e "\033[0;36mhoping喵~让你选一个执行（输入数字即可），懂了吗？\033[0;38m(｡ì _ í｡)\033[0m\033[0m
 \033[0;33m--------------------------------------\033[0m
-\033[0;31m选项0 退出脚本\033[0m
-\033[0;33m选项1 启动Clewd\033[0m
-\033[0;37m选项2 启动酒馆\033[0m
-\033[0;33m选项3 Clewd设置\033[0m
-\033[0;37m选项4 酒馆设置\033[0m
-\033[0;33m选项5 神秘小链接$saclinkemoji\033[0m
+\033[0;33m选项0 启动ClewdR\033[0m
+\033[0;37m选项1 启动Clewd\033[0m
+\033[0;33m选项2 启动酒馆\033[0m
+\033[0;37m选项3 Clewd设置\033[0m
+\033[0;33m选项5 酒馆设置\033[0m
+\033[0;37m选项5 神秘小链接$saclinkemoji\033[0m
 \033[0;33m--------------------------------------\033[0m
 \033[0;31m选项6 更新脚本\033[0m
+\033[0;31m选项7 退出脚本\033[0m
 \033[0;33m--------------------------------------\033[0m
 \033[0;35m不准选其他选项，听到了吗？
 \033[0m\n(⇀‸↼‶)"
@@ -854,7 +862,17 @@ do
     echo 
     case $option in 
         0) 
-            break ;; 
+            #启动ClewdR
+            if [ ! "clewdR" ]; then
+	            echo "正在下载喵...项目地址：https://github.com/Xerxes-2/clewdr"
+	            curl -fL "https://github.com/Xerxes-2/clewdr/releases/latest/download/clewdr-android-aarch64.zip" -O
+	            unzip clewdr-android-aarch64 -d .
+	            chmod +x clewdr
+            fi
+            echo "ClewdR启动中喵，如果需要退出，请点击Ctrl+C。"
+            ./clewdr
+            echo "ClewdR已关闭, 即将返回主菜单"
+            ;;
         1) 
             #启动Clewd
             port=$(grep -oP '"Port":\s*\K\d+' clewd/config.js)
@@ -894,6 +912,9 @@ do
             echo -e "该选项仅用于更新脚本，如需更新Clewd或酒馆，请在对应设置里选择喵~"
             curl -O https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/sac.sh
 	        echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
+            break ;;
+        7) 
+            echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
             break ;;
         *) 
             echo -e "m9( ｀д´ )!!!! \n\033[0;36m坏猫猫居然不听话，存心和我hoping喵~过不去是吧？\033[0m\n"
