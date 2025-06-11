@@ -79,7 +79,7 @@ elif [ ! -f "clewd/config.js" ]; then
     cd /root
 fi
 
-if [ ! "clewdR" ]; then
+if [ ! -f "clewdr" ]; then
 	echo "clewdR不存在，正在下载喵...项目地址：https://github.com/Xerxes-2/clewdr"
 	curl -fL "https://github.com/Xerxes-2/clewdr/releases/latest/download/clewdr-android-aarch64.zip" -O
 	unzip clewdr-android-aarch64 -d .
@@ -853,7 +853,7 @@ do
 \033[0;33m选项5 酒馆设置\033[0m
 \033[0;37m选项5 神秘小链接$saclinkemoji\033[0m
 \033[0;33m--------------------------------------\033[0m
-\033[0;31m选项6 更新脚本\033[0m
+\033[0;37m选项6 更新脚本\033[0m
 \033[0;31m选项7 退出脚本\033[0m
 \033[0;33m--------------------------------------\033[0m
 \033[0;35m不准选其他选项，听到了吗？
@@ -863,7 +863,7 @@ do
     case $option in 
         0) 
             #启动ClewdR
-            if [ ! "clewdR" ]; then
+            if [ ! -f "clewdr" ]; then
 	            echo "正在下载喵...项目地址：https://github.com/Xerxes-2/clewdr"
 	            curl -fL "https://github.com/Xerxes-2/clewdr/releases/latest/download/clewdr-android-aarch64.zip" -O
 	            unzip clewdr-android-aarch64 -d .
