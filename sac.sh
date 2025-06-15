@@ -869,23 +869,23 @@ while :
 do 
     echo -e "\033[0;36mhoping喵~让你选一个执行（输入数字即可），懂了吗？\033[0;38m(｡ì _ í｡)\033[0m\033[0m
 \033[0;33m--------------------------------------\033[0m
-\033[0;31m选项0 退出脚本\033[0m
-\033[0;33m选项1 启动ClewdR\033[0m
-\033[0;37m选项2 启动Clewd\033[0m
-\033[0;33m选项3 启动酒馆\033[0m
-\033[0;37m选项4 ClewdR设置\033[0m
-\033[0;33m选项5 Clewd设置\033[0m
-\033[0;37m选项6 酒馆设置\033[0m
-\033[0;33m选项7 神秘小链接$saclinkemoji\033[0m
+\033[0;33m选项0 启动ClewdR\033[0m
+\033[0;37m选项1 启动Clewd\033[0m
+\033[0;33m选项2 启动酒馆\033[0m
+\033[0;37m选项3 Clewd设置\033[0m
+\033[0;33m选项4 酒馆设置\033[0m
+\033[0;37m选项5 ClewdR设置\033[0m
+\033[0;33m选项6 神秘小链接$saclinkemoji\033[0m
 \033[0;33m--------------------------------------\033[0m
-\033[0;31m选项8 更新脚本\033[0m
+\033[0;37m选项7 更新脚本\033[0m
+\033[0;31m选项8 退出脚本\033[0m
 \033[0;33m--------------------------------------\033[0m
 \033[0;35m不准选其他选项，听到了吗？
 \033[0m\n(⇀‸↼‶)"
     read -n 1 option
     echo 
     case $option in 
-        1) 
+        0) 
             #启动ClewdR
             if [ ! -f "clewdr" ]; then
 	            echo "正在下载喵...项目地址：https://github.com/Xerxes-2/clewdr"
@@ -897,7 +897,7 @@ do
             ./clewdr
             echo "ClewdR已关闭, 即将返回主菜单"
             ;;
-        2) 
+        1) 
             #启动Clewd
             port=$(grep -oP '"Port":\s*\K\d+' clewd/config.js)
             echo "端口为$port, 出现 (x)Login in {邮箱} 代表启动成功, 后续出现AI无法应答等报错请检查本窗口喵，可使用Ctrl+C退出Clewd。"
@@ -907,7 +907,7 @@ do
             echo "Clewd已关闭, 即将返回主菜单"
             cd ../
             ;; 
-        3) 
+        2) 
             #启动SillyTavern
             echo "酒馆启动中，可使用Ctrl+C退出酒馆。"
 			ps -ef | grep server.js | awk '{print$2}' | xargs kill -9
@@ -916,32 +916,32 @@ do
             echo "酒馆已关闭, 即将返回主菜单"
             cd ../
             ;; 
-        4) 
-            #ClewdR设置
-            clewdRSettings
-            ;;
-        5) 
+        3) 
             #Clewd设置
             clewdSettings
             ;; 
-        6) 
+        4) 
             #SillyTavern设置
             sillyTavernSettings
             ;; 
-		7)
+		5) 
+            #ClewdR设置
+            clewdRSettings
+            ;;
+		6)
 			saclinkname=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $1 }')
 			echo -e "神秘小链接会不定期悄悄更新，这次的神秘小链接是..."
 			sleep 2
 			echo $saclinkname
 			termux-open-url $(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $2 }')
 			;;
-        8)
+        7)
             # 更新脚本
             echo -e "该选项仅用于更新脚本，如需更新Clewd或酒馆，请在对应设置里选择喵~"
             curl -O https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/sac.sh
 	        echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
             break ;;
-        0) 
+        8) 
             echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
             break ;;
         *) 
