@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "                                              
-喵喵一键安卓脚本 3.0
+喵喵一键安卓脚本 3.0TEST
 作者: hoping喵，水秋喵
 来自: Claude先行破限组
 群号: 704819371 / 910524479 / 304690608
@@ -63,6 +63,7 @@ curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.s
 
 if [ ! -f "$current/root/sac.sh" ]; then
    echo "启动文件下载失败了，换个魔法或者手动下载试试吧"
+   exit
 fi
 
 ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian/root
