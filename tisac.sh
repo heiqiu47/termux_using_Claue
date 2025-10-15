@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "                                              
-喵喵一键安卓脚本3
+喵喵一键安卓脚本 3
 作者: hoping喵，水秋喵
 来自: Claude先行破限组
 群号: 704819371 / 910524479 / 304690608
@@ -26,7 +26,7 @@ DEBIAN_FRONTEND=noninteractive pkg install proot-distro -y
 # 创建并安装Debian
 DEBIAN_FRONTEND=noninteractive proot-distro install debian
 
-# Check Ubuntu installed successfully
+# Check debian installed successfully
  if [ ! -d "$current" ]; then
    echo "Debian安装失败了，请更换魔法或者手动安装Debian喵~"
     exit 1
@@ -65,9 +65,9 @@ if [ ! -f "$current/root/sac.sh" ]; then
    echo "启动文件下载失败了，换个魔法或者手动下载试试吧"
 fi
 
-ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root
+ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian/root
 echo "bash /root/sac.sh" >>$current/root/.bashrc
-echo "proot-distro login ubuntu" >>/data/data/com.termux/files/home/.bashrc
+echo "proot-distro login debian" >>/data/data/com.termux/files/home/.bashrc
 source /data/data/com.termux/files/home/.bashrc
 
 exit
