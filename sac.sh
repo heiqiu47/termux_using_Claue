@@ -43,8 +43,7 @@ else
     # else
     #     echo "node下载失败，╮(︶﹏︶)╭，自己尝试手动下载吧"
     #     exit 1
-
-  fi
+    # fi 
 fi
 
 #添加termux上的Ubuntu/root软链接
