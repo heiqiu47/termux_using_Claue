@@ -1,13 +1,13 @@
 #!/bin/bash
 
-version="Ver2.9.8"
-clewd_version="$(grep '"version"' "clewd/package.json" | awk -F '"' '{print $4}')($(grep "Main = 'clewd修改版 v'" "clewd/lib/clewd-utils.js" | awk -F'[()]' '{print $3}'))"
+version="Ver3.0.0"
+# clewd_version="$(grep '"version"' "clewd/package.json" | awk -F '"' '{print $4}')($(grep "Main = 'clewd修改版 v'" "clewd/lib/clewd-utils.js" | awk -F'[()]' '{print $3}'))"
 st_version=$(grep '"version"' "SillyTavern/package.json" | awk -F '"' '{print $4}')
 echo "hoping：卡在这里了？...说明有小猫没开魔法喵~"
 latest_version=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/VERSION)
-clewd_latestversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/package.json | grep '"version"' | awk -F '"' '{print $4}')
-clewd_subversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/lib/clewd-utils.js | grep "Main = 'clewd修改版 v'" | awk -F'[()]' '{print $3}')
-clewd_latest="$clewd_latestversion($clewd_subversion)"
+# clewd_latestversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/package.json | grep '"version"' | awk -F '"' '{print $4}')
+# clewd_subversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/lib/clewd-utils.js | grep "Main = 'clewd修改版 v'" | awk -F'[()]' '{print $3}')
+# clewd_latest="$clewd_latestversion($clewd_subversion)"
 st_latest=$(curl -s https://raw.githubusercontent.com/SillyTavern/SillyTavern/release/package.json | grep '"version"' | awk -F '"' '{print $4}')
  saclinkemoji=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $3 }')
 # hopingmiao==hotmiao 
@@ -30,24 +30,26 @@ if command -v node &> /dev/null; then
     echo "node指令存在"
     node --version
 else
-    echo "node指令不存在，正在尝试重新下载喵~"
-    curl -O https://nodejs.org/dist/v22.16.0/node-v22.16.0-linux-arm64.tar.xz
-    tar xf node-v22.16.0-linux-arm64.tar.xz
-    echo "export PATH=\$PATH:/root/node-v22.16.0-linux-arm64/bin" >>/etc/profile
-    source /etc/profile
-    if command -v node &> /dev/null; then
-        echo "node成功下载"
-        node --version                                                
-    else
-        echo "node下载失败，╮(︶﹏︶)╭，自己尝试手动下载吧"
-        exit 1
+    echo "node指令不存在"
+    exit 1
+    # echo "node指令不存在，正在尝试重新下载喵~"
+    # curl -O https://nodejs.org/dist/v22.16.0/node-v22.16.0-linux-arm64.tar.xz
+    # tar xf node-v22.16.0-linux-arm64.tar.xz
+    # echo "export PATH=\$PATH:/root/node-v22.16.0-linux-arm64/bin" >>/etc/profile
+    # source /etc/profile
+    # if command -v node &> /dev/null; then
+    #     echo "node成功下载"
+    #     node --version                                                
+    # else
+    #     echo "node下载失败，╮(︶﹏︶)╭，自己尝试手动下载吧"
+    #     exit 1
 
   fi
 fi
 
 #添加termux上的Ubuntu/root软链接
 if [ ! -d "/data/data/com.termux/files/home/root" ]; then
-    ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root /data/data/com.termux/files/home
+    ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian/root /data/data/com.termux/files/home
 fi
 
 echo "root软链接已添加，可直接在mt管理器打开root文件夹修改文件"
@@ -119,7 +121,6 @@ function clewdRSettings {
         ;;
     esac
 }
-
 function clewdSettings { 
     # 3. Clewd设置
     if grep -q '"sactag"' "clewd/config.js"; then
@@ -855,13 +856,14 @@ function TavernAI-extrasstart {
 	
 }
 # 主菜单
+# 暂时不检测更新
+# 版本：酒馆:$st_version clewd:$clewd_version 脚本:$version
+# 最新：\033[5;36m酒馆:$st_latest\033[0m \033[5;32mclewd:$clewd_latest\033[0m \033[0;33m脚本:$latest_version\033[0m
 echo -e "                                              
 喵喵一键脚本
 作者：hoping喵(懒喵~)，水秋喵(苦等hoping喵起床)
-版本：酒馆:$st_version clewd:$clewd_version 脚本:$version
-最新：\033[5;36m酒馆:$st_latest\033[0m \033[5;32mclewd:$clewd_latest\033[0m \033[0;33m脚本:$latest_version\033[0m
-来自：Claude先行破限组
-群号：704819371，910524479，304690608
+版本：$version 最新版本: $latest_version
+来自：Claude先行破限组 群号：704819371，910524479，304690608
 类脑Discord: https://discord.gg/HWNkueX34q
 相关教程：https://sqivg8d05rm.feishu.cn/wiki/EY5TwjuwliCwZpk7Gy7cPGH1nvb
 此程序完全免费，不允许对脚本/教程进行盗用/商用。运行时需要稳定的魔法网络环境。"
@@ -938,7 +940,7 @@ do
         7)
             # 更新脚本
             echo -e "该选项仅用于更新脚本，如需更新Clewd或酒馆，请在对应设置里选择喵~"
-            curl -O https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/sac.sh
+            curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
 	        echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
             break ;;
         8) 
