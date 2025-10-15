@@ -73,15 +73,15 @@ curl -O https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/sac
 
 if [ ! -f "$current/root/sac.sh" ]; then
    echo "启动文件下载失败了，换个魔法或者手动下载试试吧"
-   exit
 fi
 
+echo "创建符号链接"
 ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root
-
+echo "将字符串bash /root/sac.sh追加到current/root/.bashrc文件中"
 echo "bash /root/sac.sh" >>$current/root/.bashrc
-
+echo "将字符串proot-distro login ubuntu追加到Termux目录的.bashrc文件中"
 echo "proot-distro login ubuntu" >>/data/data/com.termux/files/home/.bashrc
-
+echo "用于重新加载Termux的.bashrc文件"
 source /data/data/com.termux/files/home/.bashrc
 
 exit
