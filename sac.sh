@@ -6,11 +6,6 @@ st_version=$(grep '"version"' "SillyTavern/package.json" | awk -F '"' '{print $4
 echo "水秋喵：较新的CPU会出现红色警告，使用正常请无视喵~ "
 echo "hoping：卡在这里了？...说明有小猫没开魔法喵~"
 latest_version=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/VERSION)
-
-# clewd_latestversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/package.json | grep '"version"' | awk -F '"' '{print $4}')
-# clewd_subversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/lib/clewd-utils.js | grep "Main = 'clewd修改版 v'" | awk -F'[()]' '{print $3}')
-# clewd_latest="$clewd_latestversion($clewd_subversion)"
-# st_latest=$(curl -s https://raw.githubusercontent.com/SillyTavern/SillyTavern/release/package.json | grep '"version"' | awk -F '"' '{print $4}')
 # saclinkemoji=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $3 }')
 # hopingmiao==hotmiao 
 
@@ -21,7 +16,6 @@ NC='\033[0m' # No Color
 
 # 检查是否存在git指令
 if command -v git &> /dev/null; then
-    echo "git指令存在"
     git --version
 else
     echo "git指令不存在，建议回termux下载git喵~"
@@ -29,7 +23,6 @@ fi
 
 # 检查是否存在node指令
 if command -v node &> /dev/null; then
-    echo "node指令存在"
     node --version
 else
     echo "node指令不存在"
@@ -125,6 +118,9 @@ function clewdRSettings {
 }
 function clewdSettings { 
     # 3. Clewd设置
+    clewd_latestversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/package.json | grep '"version"' | awk -F '"' '{print $4}')
+    clewd_subversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/lib/clewd-utils.js | grep "Main = 'clewd修改版 v'" | awk -F'[()]' '{print $3}')
+    clewd_latest="$clewd_latestversion($clewd_subversion)"
     if grep -q '"sactag"' "clewd/config.js"; then
         sactag_value=$(grep '"sactag"' "clewd/config.js" | sed -E 's/.*"sactag": *"([^"]+)".*/\1/')
     else
@@ -501,6 +497,7 @@ function clewdSettings {
 
 function sillyTavernSettings {
     # 4. SillyTavern设置
+    # st_latest=$(curl -s https://raw.githubusercontent.com/SillyTavern/SillyTavern/release/package.json | grep '"version"' | awk -F '"' '{print $4}')
 	echo -e "\033[0;36mhoping：选一个执行，输入其他键可退出喵~\033[0m
 \033[0;33m当前版本:\033[0m$st_version \033[0;33m最新版本:\033[0m\033[5;36m$st_latest\033[0m
 \033[0;33m--------------------------------------\033[0m
@@ -941,9 +938,17 @@ do
 			;;
         7)
             # 更新脚本
-            echo -e "该选项仅用于更新脚本，如需更新Clewd或酒馆，请在对应设置里选择喵~"
-            curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
-	        echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
+            echo -e "该选项仅用于更新脚本，如需更新酒馆，请选择 4.酒馆设置 喵~"
+            read -p "是否需要更新脚本?(y/n)" choice
+            if [ "$choice" == "y" ] || [ "$choice" == "Y" ]; then
+                echo -e "更新中喵~"
+                curl -O https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/sac.sh
+                echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
+            elif [ "$choice" == "t" ] || [ "$choice" == "T" ]; then
+                echo -e "正在更新水秋喵测试版喵~"
+                curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
+                echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
+            fi
             break ;;
         8) 
             echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
