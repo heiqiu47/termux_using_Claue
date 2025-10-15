@@ -13,7 +13,7 @@ echo -e "\033[0;31m开魔法！开魔法！开魔法！\033[0m\n"
 
 read -p "确保开了魔法后按回车继续"
 
-current=/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu
+current=/data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian
 
 yes | pkg update
 yes | pkg upgrade
@@ -23,35 +23,26 @@ yes | pkg install nodejs
 # 安装proot-distro
 DEBIAN_FRONTEND=noninteractive pkg install proot-distro -y
 
-# 创建并安装Ubuntu
-DEBIAN_FRONTEND=noninteractive proot-distro install ubuntu
+# 创建并安装Debian
+DEBIAN_FRONTEND=noninteractive proot-distro install debian
 
 # Check Ubuntu installed successfully
  if [ ! -d "$current" ]; then
-   echo "Ubuntu安装失败了，请更换魔法或者手动安装Ubuntu喵~"
+   echo "Debian安装失败了，请更换魔法或者手动安装Debian喵~"
     exit 1
  fi
 
-    echo "Ubuntu成功安装到Termux"
+    echo "Debian成功安装到Termux"
 
 echo "正在安装相应软件喵~"
 
-DEBIAN_FRONTEND=noninteractive pkg install git vim curl xz-utils -y
+DEBIAN_FRONTEND=noninteractive pkg install git vim curl nodejs xz-utils -y
 
 if [ -d "SillyTavern" ]; then
   cp -r SillyTavern $current/root/
 fi
 
 cd $current/root
-
-echo "正在为Ubuntu安装node喵~"
-if [ ! -d node-v22.16.0-linux-arm64.tar.xz ]; then
-    curl -O https://nodejs.org/dist/v22.16.0/node-v22.16.0-linux-arm64.tar.xz
-
-tar xf node-v22.16.0-linux-arm64.tar.xz
-
-echo "export PATH=\$PATH:/root/node-v22.16.0-linux-arm64/bin" >>$current/etc/profile
-fi
 
 if [ ! -d "SillyTavern" ]; then
 git clone https://github.com/SillyTavern/SillyTavern
@@ -60,7 +51,6 @@ fi
 git clone -b test https://github.com/teralomaniac/clewd
 
 echo -e "\033[0;33m本操作仅为破限下载提供方便，所有破限皆为收录，喵喵不具有破限所有权\033[0m"
-read -p "回车进行导入喵~"
 git clone https://github.com/hopingmiao/promot.git st_promot
 if  [ ! -d "st_promot" ]; then
     echo -e "(*꒦ິ⌓꒦ີ)\n\033[0;33m hoping：因网络波动预设文件下载失败了，更换网络后再试喵~\n\033[0m"
@@ -69,19 +59,15 @@ else
     echo -e "\033[0;33m破限已成功导入，安装完毕后启动酒馆即可看到喵~\033[0m"
 fi
 
-curl -O https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/sac.sh
+curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
 
 if [ ! -f "$current/root/sac.sh" ]; then
    echo "启动文件下载失败了，换个魔法或者手动下载试试吧"
 fi
 
-echo "创建符号链接"
 ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root
-echo "将字符串bash /root/sac.sh追加到current/root/.bashrc文件中"
 echo "bash /root/sac.sh" >>$current/root/.bashrc
-echo "将字符串proot-distro login ubuntu追加到Termux目录的.bashrc文件中"
 echo "proot-distro login ubuntu" >>/data/data/com.termux/files/home/.bashrc
-echo "用于重新加载Termux的.bashrc文件"
 source /data/data/com.termux/files/home/.bashrc
 
 exit
