@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "                                              
-喵喵一键安卓脚本 3
+喵喵一键安卓脚本 3.0
 作者: hoping喵，水秋喵
 来自: Claude先行破限组
 群号: 704819371 / 910524479 / 304690608
@@ -26,7 +26,7 @@ DEBIAN_FRONTEND=noninteractive pkg install proot-distro -y
 # 创建并安装Debian
 DEBIAN_FRONTEND=noninteractive proot-distro install debian
 
-# Check debian installed successfully
+# Check Debian installed successfully
  if [ ! -d "$current" ]; then
    echo "Debian安装失败了，请更换魔法或者手动安装Debian喵~"
     exit 1
