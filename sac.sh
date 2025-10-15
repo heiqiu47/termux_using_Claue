@@ -1,15 +1,16 @@
 #!/bin/bash
 
-version="Ver3.0.0 TEST"
-# clewd_version="$(grep '"version"' "clewd/package.json" | awk -F '"' '{print $4}')($(grep "Main = 'clewd修改版 v'" "clewd/lib/clewd-utils.js" | awk -F'[()]' '{print $3}'))"
+version="Ver3.0.0TEST"
+clewd_version="$(grep '"version"' "clewd/package.json" | awk -F '"' '{print $4}')($(grep "Main = 'clewd修改版 v'" "clewd/lib/clewd-utils.js" | awk -F'[()]' '{print $3}'))"
 st_version=$(grep '"version"' "SillyTavern/package.json" | awk -F '"' '{print $4}')
+echo "水秋喵：较新的CPU会出现红色警告，如使用正常请无视喵~ "
 echo "hoping：卡在这里了？...说明有小猫没开魔法喵~"
-latest_version=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/VERSION)
+# latest_version=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/VERSION)
 # clewd_latestversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/package.json | grep '"version"' | awk -F '"' '{print $4}')
 # clewd_subversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/lib/clewd-utils.js | grep "Main = 'clewd修改版 v'" | awk -F'[()]' '{print $3}')
 # clewd_latest="$clewd_latestversion($clewd_subversion)"
-st_latest=$(curl -s https://raw.githubusercontent.com/SillyTavern/SillyTavern/release/package.json | grep '"version"' | awk -F '"' '{print $4}')
- saclinkemoji=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $3 }')
+# st_latest=$(curl -s https://raw.githubusercontent.com/SillyTavern/SillyTavern/release/package.json | grep '"version"' | awk -F '"' '{print $4}')
+# saclinkemoji=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $3 }')
 # hopingmiao==hotmiao 
 
 # ANSI Colors
@@ -46,7 +47,7 @@ else
     # fi 
 fi
 
-#添加termux上的Ubuntu/root软链接
+#添加termux上的debian/root软链接
 if [ ! -d "/data/data/com.termux/files/home/root" ]; then
     ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian/root /data/data/com.termux/files/home
 fi
@@ -80,12 +81,12 @@ elif [ ! -f "clewd/config.js" ]; then
     cd /root
 fi
 
-if [ ! -f "clewdr" ]; then
-	echo "clewdR不存在，正在下载喵...项目地址：https://github.com/Xerxes-2/clewdr"
-	curl -fL "https://github.com/Xerxes-2/clewdr/releases/latest/download/clewdr-android-aarch64.zip" -O
-	unzip clewdr-android-aarch64 -d .
-	chmod +x clewdr
-fi
+# if [ ! -f "clewdr" ]; then
+# 	echo "clewdR不存在，正在下载喵...项目地址：https://github.com/Xerxes-2/clewdr"
+# 	curl -fL "https://github.com/Xerxes-2/clewdr/releases/latest/download/clewdr-android-aarch64.zip" -O
+# 	unzip clewdr-android-aarch64 -d .
+# 	chmod +x clewdr
+# fi
 
 if [ ! -d "SillyTavern" ]; then
 	echo -e "(*꒦ິ⌓꒦ີ)\n\033[0;33m hoping：因网络波动文件下载失败了，更换网络后再试喵~\n\033[0m"
@@ -856,13 +857,12 @@ function TavernAI-extrasstart {
 }
 # 主菜单
 # 暂时不检测更新
-# 版本：酒馆:$st_version clewd:$clewd_version 脚本:$version
 # 最新：\033[5;36m酒馆:$st_latest\033[0m \033[5;32mclewd:$clewd_latest\033[0m \033[0;33m脚本:$latest_version\033[0m
 echo -e "                                              
 喵喵一键脚本
 作者：hoping喵(懒喵~)，水秋喵(苦等hoping喵起床)
-版本：$version 最新版本: $latest_version
-来自：Claude先行破限组 群号：704819371，910524479，304690608
+版本：酒馆:$st_version clewd:$clewd_version 脚本:$version
+来自：Claude先行破限组 群号：704819371，910524479，755641822
 类脑Discord: https://discord.gg/HWNkueX34q
 相关教程：https://sqivg8d05rm.feishu.cn/wiki/EY5TwjuwliCwZpk7Gy7cPGH1nvb
 此程序完全免费，不允许对脚本/教程进行盗用/商用。运行时需要稳定的魔法网络环境。"
