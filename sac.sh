@@ -23,6 +23,7 @@ fi
 
 # 检查是否存在node指令
 if command -v node &> /dev/null; then
+    echo "Node指令存在，版本为："
     node --version
 else
     echo "node指令不存在"
@@ -858,7 +859,7 @@ function TavernAI-extrasstart {
 # 暂时不检测更新
 # 最新：\033[5;36m酒馆:$st_latest\033[0m \033[5;32mclewd:$clewd_latest\033[0m \033[0;33m脚本:$latest_version\033[0m
 echo -e "                                              
-喵喵一键脚本
+🐱喵喵一键脚本🐱
 作者：hoping喵(懒喵~)，水秋喵(苦等hoping喵起床)
 版本：酒馆:$st_version clewd:$clewd_version 脚本:$version
 最新：\033[0;33m脚本:$latest_version\033[0m
