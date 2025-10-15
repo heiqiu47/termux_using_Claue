@@ -3,9 +3,10 @@
 version="Ver3.0.0TEST"
 clewd_version="$(grep '"version"' "clewd/package.json" | awk -F '"' '{print $4}')($(grep "Main = 'clewd修改版 v'" "clewd/lib/clewd-utils.js" | awk -F'[()]' '{print $3}'))"
 st_version=$(grep '"version"' "SillyTavern/package.json" | awk -F '"' '{print $4}')
-echo "水秋喵：较新的CPU会出现红色警告，如使用正常请无视喵~ "
+echo "水秋喵：较新的CPU会出现红色警告，使用正常请无视喵~ "
 echo "hoping：卡在这里了？...说明有小猫没开魔法喵~"
-# latest_version=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/VERSION)
+latest_version=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/VERSION)
+
 # clewd_latestversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/package.json | grep '"version"' | awk -F '"' '{print $4}')
 # clewd_subversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/lib/clewd-utils.js | grep "Main = 'clewd修改版 v'" | awk -F'[()]' '{print $3}')
 # clewd_latest="$clewd_latestversion($clewd_subversion)"
@@ -52,7 +53,8 @@ if [ ! -d "/data/data/com.termux/files/home/root" ]; then
     ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian/root /data/data/com.termux/files/home
 fi
 
-echo "root软链接已添加，可直接在mt管理器打开root文件夹修改文件"
+echo "root软链接已添加，可在mt管理器打开root文件夹修改文件，添加方法请看教程"
+
 
 if [ ! -d "SillyTavern" ]; then
     echo "SillyTavern不存在，正在通过git下载..."
@@ -862,6 +864,7 @@ echo -e "
 喵喵一键脚本
 作者：hoping喵(懒喵~)，水秋喵(苦等hoping喵起床)
 版本：酒馆:$st_version clewd:$clewd_version 脚本:$version
+最新：\033[0;33m脚本:$latest_version\033[0m
 来自：Claude先行破限组 群号：704819371，910524479，755641822
 类脑Discord: https://discord.gg/HWNkueX34q
 相关教程：https://sqivg8d05rm.feishu.cn/wiki/EY5TwjuwliCwZpk7Gy7cPGH1nvb
