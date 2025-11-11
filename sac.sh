@@ -1,11 +1,11 @@
 #!/bin/bash
 
-version="Ver3.0.0TEST"
+version="Ver3.0.1TEST"
 clewd_version="$(grep '"version"' "clewd/package.json" | awk -F '"' '{print $4}')($(grep "Main = 'clewd修改版 v'" "clewd/lib/clewd-utils.js" | awk -F'[()]' '{print $3}'))"
 st_version=$(grep '"version"' "SillyTavern/package.json" | awk -F '"' '{print $4}')
 echo "水秋喵：较新的CPU会出现红色警告，使用正常请无视喵~ "
 echo "hoping：卡在这里了？...说明有小猫没开魔法喵~"
-latest_version=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/VERSION)
+latest_version=$(curl -s https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/VERSION)
 # saclinkemoji=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $3 }')
 # hopingmiao==hotmiao 
 
@@ -512,6 +512,7 @@ function sillyTavernSettings {
 \033[0;37m选项8 回退 上一版本酒馆\033[0m
 \033[0;33m选项9 导出 当前版本酒馆\033[0m
 \033[0;37m选项a 重新安装依赖\033[0m
+\033[0;33m选项b 不保留数据重新安装酒馆\033[0m
 \033[0;33m--------------------------------------\033[0m
 \033[0;31m选项0 更新酒馆\033[0m
 \033[0;33m--------------------------------------\033[0m
@@ -692,6 +693,18 @@ hoping：选择更新正式版或者测试版喵？
             rm -rf node_modules
             npm install
             cd ~/
+            ;;
+        b)
+            echo "是否重新安装最新版酒馆喵？（仅供萌新下载失败时使用，将不保留任何数据，老东西请勿作死选择喵）[y/n]"    
+            read choice
+            if [[ "$choice" == [yY] ]]; then
+                echo "再次确认，是否重新安装最新版酒馆喵？（仅供萌新下载酒馆失败时使用，将不保留任何数据，请勿作死选择喵）[y/n]"    
+                read choice2
+                if [[ "$choice2" == [yY] ]]; then
+                rm -rf SillyTavern
+                git clone https://github.com/SillyTavern/SillyTavern SillyTavern
+                fi
+            fi
             ;;
         *)
             echo "什么都没有执行喵~"
@@ -941,13 +954,17 @@ do
         7)
             # 更新脚本
             echo -e "该选项仅用于更新脚本，如需更新酒馆，请选择 4.酒馆设置 喵~"
-            read -p "是否需要更新脚本?(y/n)" choice
+            read -p "是否需要更新脚本?(y/n/h/t)" choice
             if [ "$choice" == "y" ] || [ "$choice" == "Y" ]; then
                 echo -e "更新中喵~"
+                curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
+                echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
+            elif [ "$choice" == "h" ] || [ "$choice" == "H" ]; then
+                echo -e "正在更新为Hoping喵版喵~"
                 curl -O https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/sac.sh
                 echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
             elif [ "$choice" == "t" ] || [ "$choice" == "T" ]; then
-                echo -e "正在更新水秋喵测试版喵~"
+                echo -e "正在更新为水秋喵版喵~"
                 curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
                 echo -e "重启终端或者输入bash sac.sh重新进入脚本喵~"
             fi
