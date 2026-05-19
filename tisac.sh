@@ -66,7 +66,7 @@ if [ ! -f "$current/root/sac.sh" ]; then
    exit
 fi
 
-ln -s /data/data/com.termux/files/usr/var/lib/containers/debian/root
+ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/containers/debian/root
 echo "bash /root/sac.sh" >>$current/root/.bashrc
 echo "proot-distro login debian" >>/data/data/com.termux/files/home/.bashrc
 source /data/data/com.termux/files/home/.bashrc
