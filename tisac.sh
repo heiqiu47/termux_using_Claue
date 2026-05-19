@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "                                              
-喵喵一键安卓脚本 3.0TEST
+喵喵一键安卓脚本 3.0.1TEST
 作者: hoping喵，水秋喵
 来自: Claude先行破限组
 群号: 704819371 / 910524479 / 304690608
@@ -39,16 +39,14 @@ echo "正在安装相应软件喵~"
 DEBIAN_FRONTEND=noninteractive pkg install git vim curl nodejs xz-utils -y
 
 if [ -d "SillyTavern" ]; then
-  cp -r SillyTavern $current/root/
+  cp -r SillyTavern $current/rootfs/root/
 fi
 
-cd $current/root
+cd $current/rootfs/root
 
 if [ ! -d "SillyTavern" ]; then
 git clone https://github.com/SillyTavern/SillyTavern
 fi
-
-git clone -b test https://github.com/teralomaniac/clewd
 
 echo -e "\033[0;33m本操作仅为破限下载提供方便，所有破限皆为收录，喵喵不具有破限所有权\033[0m"
 git clone https://github.com/hopingmiao/promot.git st_promot
@@ -62,13 +60,15 @@ fi
 curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
 
 if [ ! -f "$current/root/sac.sh" ]; then
-   echo "启动文件下载失败了，换个魔法或者手动下载试试吧"
-   exit
+    read -p "启动文件下载失败了，请更换魔法节点，回车重试喵"
+    curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
+    if [ ! -f "$current/root/sac.sh" ]; then
+         echo -e "还是下载失败喵，请更换魔法节点重试"
+    exit
+    fi
 fi
-
-ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/containers/debian/root
-echo "bash /root/sac.sh" >>$current/root/.bashrc
 echo "proot-distro login debian" >>/data/data/com.termux/files/home/.bashrc
+echo "bash /root/sac.sh" >>$current/rootfs/root/.bashrc
 source /data/data/com.termux/files/home/.bashrc
 
 exit
