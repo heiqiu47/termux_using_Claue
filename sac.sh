@@ -3,7 +3,6 @@
 version="Ver3.0.1TEST"
 clewd_version="$(grep '"version"' "clewd/package.json" | awk -F '"' '{print $4}')($(grep "Main = 'clewd修改版 v'" "clewd/lib/clewd-utils.js" | awk -F'[()]' '{print $3}'))"
 st_version=$(grep '"version"' "SillyTavern/package.json" | awk -F '"' '{print $4}')
-echo "水秋喵：较新的CPU会出现红色警告，使用正常请无视喵~ "
 echo "hoping：卡在这里了？...说明有小猫没开魔法喵~"
 latest_version=$(curl -s https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/VERSION)
 # saclinkemoji=$(curl -s https://raw.githubusercontent.com/hopingmiao/termux_using_Claue/main/secret_saclink | awk -F '|' '{print $3 }')
@@ -44,7 +43,7 @@ fi
 
 #添加termux上的debian/root软链接
 if [ ! -d "/data/data/com.termux/files/home/root" ]; then
-    ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/containers/debian/root /data/data/com.termux/files/home
+    ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/containers/debian/rootfs/root /data/data/com.termux/files/home
 fi
 
 echo "root软链接已添加，可在mt管理器打开root文件夹修改文件，添加方法请看教程"
@@ -65,18 +64,6 @@ if [ ! -d "SillyTavern" ]; then
     fi
 fi
 
-if [ ! -d "clewd" ]; then
-	echo "clewd不存在，正在通过git下载..."
-	git clone -b test https://github.com/teralomaniac/clewd
-	cd clewd
-	bash start.sh
-        cd /root
-elif [ ! -f "clewd/config.js" ]; then
-    cd clewd
-    bash start.sh
-    cd /root
-fi
-
 # if [ ! -f "clewdr" ]; then
 # 	echo "clewdR不存在，正在下载喵...项目地址：https://github.com/Xerxes-2/clewdr"
 # 	curl -fL "https://github.com/Xerxes-2/clewdr/releases/latest/download/clewdr-android-aarch64.zip" -O
@@ -89,11 +76,6 @@ if [ ! -d "SillyTavern" ]; then
 	exit 2
 fi
 
-if  [ ! -d "clewd" ] || [ ! -f "clewd/config.js" ]; then
-	echo -e "(*꒦ິ⌓꒦ີ)\n\033[0;33m hoping：因网络波动文件下载失败了，更换网络后再试喵~\n\033[0m"
-  	rm -rf clewd
-	exit 3
-fi
 
 function clewdRSettings {
     # ClewdR设置
@@ -119,6 +101,17 @@ function clewdRSettings {
 }
 function clewdSettings { 
     # 3. Clewd设置
+if [ ! -d "clewd" ]; then
+	echo "clewd不存在，正在通过git下载..."
+	git clone -b test https://github.com/teralomaniac/clewd
+	cd clewd
+	bash start.sh
+        cd /root
+elif [ ! -f "clewd/config.js" ]; then
+    cd clewd
+    bash start.sh
+    cd /root
+fi
     clewd_latestversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/package.json | grep '"version"' | awk -F '"' '{print $4}')
     clewd_subversion=$(curl -s https://raw.githubusercontent.com/teralomaniac/clewd/test/lib/clewd-utils.js | grep "Main = 'clewd修改版 v'" | awk -F'[()]' '{print $3}')
     clewd_latest="$clewd_latestversion($clewd_subversion)"
@@ -915,6 +908,17 @@ do
             ;;
         1) 
             #启动Clewd
+if [ ! -d "clewd" ]; then
+	echo "clewd不存在，正在通过git下载..."
+	git clone -b test https://github.com/teralomaniac/clewd
+	cd clewd
+	bash start.sh
+        cd /root
+elif [ ! -f "clewd/config.js" ]; then
+    cd clewd
+    bash start.sh
+    cd /root
+fi
             port=$(grep -oP '"Port":\s*\K\d+' clewd/config.js)
             echo "端口为$port, 出现 (x)Login in {邮箱} 代表启动成功, 后续出现AI无法应答等报错请检查本窗口喵，可使用Ctrl+C退出Clewd。"
 			ps -ef | grep clewd.js | awk '{print$2}' | xargs kill -9
