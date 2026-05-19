@@ -44,7 +44,7 @@ fi
 
 #添加termux上的debian/root软链接
 if [ ! -d "/data/data/com.termux/files/home/root" ]; then
-    ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/debian/root /data/data/com.termux/files/home
+    ln -s /data/data/com.termux/files/usr/var/lib/proot-distro/containers/debian/root /data/data/com.termux/files/home
 fi
 
 echo "root软链接已添加，可在mt管理器打开root文件夹修改文件，添加方法请看教程"
