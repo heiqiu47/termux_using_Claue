@@ -57,7 +57,7 @@ else
     echo -e "\033[0;33m破限已成功导入，安装完毕后启动酒馆即可看到喵~\033[0m"
 fi
 
-curl -O https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
+curl -O https://ghproxy.net/https://raw.githubusercontent.com/heiqiu47/termux_using_Claue/main/sac.sh
 
 if [ ! -f "$current/rootfs/root/sac.sh" ]; then
     read -p "启动文件下载失败了，请更换魔法节点，回车重试喵"
